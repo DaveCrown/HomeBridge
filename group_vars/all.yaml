@@ -1,0 +1,6 @@
+---
+homebridge_user: homebridge
+homebridge_name: bridge
+homebridge_config_dir: /var/lib/homebridge
+homebridge_theme: orange
+

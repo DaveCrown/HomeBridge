@@ -1,0 +1,10 @@
+---
+- name: systemd_reload
+  systemd:
+    daemon_reload: yes
+
+- name: homebridge_service
+  service:
+    name: homebridge
+    state: restarted
+    enabled: yes

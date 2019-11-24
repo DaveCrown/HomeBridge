@@ -1,0 +1,43 @@
+---
+- name: create hombridge user
+  user:
+    name: "{{ homebridge_user }}"
+
+- name: create config dir 
+  file:
+    path: "{{ homebridge_config_dir }}"
+    state: directory
+    owner: "{{ homebridge_user }}"
+
+- name: get homebridge path
+  command: which homebridge
+  register: which_homebridge
+  changed_when: false
+
+- name: set homebridge fact
+  set_fact:
+    homebridge_bin_path: "{{ which_homebridge.stdout }}"
+
+- name: load systemd service unit
+  template:
+    src: homebridge.service.j2
+    dest: /etc/systemd/system/homebridge.service
+  notify: 
+   - systemd_reload
+   - homebridge_service
+
+- name: create environment for homebrew_user
+  template:
+    src: env.j2
+    dest: /etc/default/homebridge
+  notify: 
+    - systemd_reload
+    - homebridge_service
+
+- name: gen template
+  template: 
+    src: config.json.j2
+    dest: "{{ homebridge_config_dir }}/config.json"
+  notify:
+    - homebridge_service
+  

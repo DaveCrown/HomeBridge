@@ -1,0 +1,20 @@
+---
+- hosts: all
+  become: yes
+  vars:
+
+  pre_tasks:
+  - name: get secured config
+    include_role:
+      name: get_config
+    when: config_repo is defined
+
+  tasks:
+
+  - name: install homebridge
+    include_role:
+      name: install
+
+  - name: configure homebridge
+    include_role:
+      name: configure_homebridge

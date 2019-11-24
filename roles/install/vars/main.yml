@@ -1,0 +1,12 @@
+---
+deb_pkgs: 
+  - git
+  - make
+  - npm
+  - libavahi-compat-libdnssd-dev
+  - net-tools
+
+npm_pkgs:
+  - homebridge
+  - homebridge-config-ui-x
+

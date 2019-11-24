@@ -1,0 +1,21 @@
+---
+- name: clone repo
+  git:
+    repo: "{{ config_repo }}"
+    dest: ./config
+    force: true
+  delegate_to: 127.0.0.1
+  changed_when: false
+  become: false
+
+- name: load vault config
+  include_vars: ./config/config_vault.yaml
+  delegate_to: 127.0.0.1
+  changed_when: false
+  become: false
+
+- name: load config
+  include_vars: ./config/config.yaml
+  delegate_to: 127.0.0.1
+  changed_when: false
+  become: false

@@ -1,0 +1,33 @@
+---
+- name: apt update
+  apt:
+    name: "*"
+    update_cache: yes
+    state: latest
+
+- name: install debian pkgs
+  apt: 
+    name: "{{ deb_pkgs }}"
+    update_cache: yes
+    state: latest
+
+- name: install homebridge via npm
+  npm:
+    name: "{{ npm_pkg }}"
+    global: yes
+    unsafe_perm: yes
+    state: latest
+  with_items: "{{ npm_pkgs }}"
+  loop_control:
+    loop_var: npm_pkg
+
+- name: install homebridge device modules
+  npm:
+    name: "{{ npm_pkg }}"
+    global: yes
+    unsafe_perm: yes
+    state: latest
+  with_items: "{{ device_pkgs }}"
+  loop_control:
+    loop_var: npm_pkg
+  when: device_pkgs is defined

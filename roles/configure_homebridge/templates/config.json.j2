@@ -1,0 +1,23 @@
+{
+    "bridge": {
+        "name": "{{ homebridge_name }}",
+        "username": "CB:22:3D:E2:CE:31",
+        "port": 51826,
+        "pin": "{{ hombebridge_pin | default('033-44-254') }}"
+    },
+    "accessories": {%-if devices is defined -%} {{- devices | to_nice_json -}} {%- else -%}[]{%endif%},
+    "platforms": [
+        {
+            "name": "Config",
+            "port": 8080,
+            "auth": "form",
+            "theme": "{{ homebridge_theme | default('dark-mode')  }}",
+            "restart": "sudo -n systemctl restart homebridge",
+            "sudo": true,
+            "log": {
+                "method": "systemd"
+            },
+            "platform": "config"
+        }
+    ]
+}
