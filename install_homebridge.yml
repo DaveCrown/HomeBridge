@@ -1,5 +1,5 @@
 ---
-- hosts: all
+- hosts: homebridge
   become: yes
   vars:
 
