@@ -7,6 +7,18 @@
   delegate_to: 127.0.0.1
   changed_when: false
   become: false
+  when: ansible_env.GIT_USER is not defined
+
+- name: clone repo
+  git:
+    repo: https://{{ ansible_env.GIT_USER | urlencode }}:{{ ansible_env.GIT_PWD | urlencode }}@{{ config_repo }}
+    dest: ./config
+    force: true
+  delegate_to: 127.0.0.1
+  changed_when: false
+  become: false
+  when: ansible_env.GIT_USER is defined
+
 
 - name: load vault config
   include_vars: ./config/config_vault.yaml
