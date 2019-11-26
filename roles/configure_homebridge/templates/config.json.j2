@@ -18,6 +18,7 @@
                 "method": "systemd"
             },
             "platform": "config"
-        }
+        },
+        {%- if platforms is defined -%} {{- platforms | to_nice_json -}} {%- else -%}[]{%endif%}
     ]
 }
