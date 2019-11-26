@@ -7,7 +7,7 @@
   delegate_to: 127.0.0.1
   changed_when: false
   become: false
-  when: ansible_env.GIT_USER is not defined
+  when: GIT_USER is not defined
 
 - name: clone repo
   git:
