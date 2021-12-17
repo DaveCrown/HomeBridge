@@ -1,5 +1,5 @@
 ---
-- hosts: homebridge
+- hosts: "{{ host | default('all')}}"
   become: yes
   vars:
 

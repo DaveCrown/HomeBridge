@@ -8,6 +8,7 @@
     path: "{{ homebridge_config_dir }}"
     state: directory
     owner: "{{ homebridge_user }}"
+    mode: 0755
 
 - name: get homebridge path
   command: which homebridge
@@ -22,14 +23,18 @@
   template:
     src: homebridge.service.j2
     dest: /etc/systemd/system/homebridge.service
+    mode: 0755
+    owner: root
   notify: 
    - systemd_reload
    - homebridge_service
 
-- name: create environment for homebrew_user
+- name: create environment for homebridge_user
   template:
     src: env.j2
     dest: /etc/default/homebridge
+    mode: 0755
+    owner: root
   notify: 
     - systemd_reload
     - homebridge_service
@@ -38,6 +43,8 @@
   template: 
     src: config.json.j2
     dest: "{{ homebridge_config_dir }}/config.json"
+    mode: 0644
+    owner: "{{ homebridge_user }}"
   notify:
     - homebridge_service
   

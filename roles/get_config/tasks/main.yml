@@ -9,7 +9,7 @@
   become: false
   when: GIT_USER is not defined
 
-- name: clone repo
+- name: clone repo via pw
   git:
     repo: https://{{ GIT_USER | urlencode }}:{{ GIT_PWD | urlencode }}@{{ config_repo }}
     dest: ./config
